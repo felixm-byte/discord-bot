@@ -12,6 +12,9 @@ client = commands.Bot(command_prefix='/', intents=intents)
 
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 GOOGLE_TOKEN = os.getenv('GOOGLE_TOKEN')
+GOOGLE_HYPERSPECIFIC_TOKEN = os.getenv('GOOGLE_HYPERSPECIFIC_TOKEN')
+GOOGLE_SPECIFIC_TOKEN = os.getenv('GOOGLE_SPECIFIC_TOKEN')
+GOOGLE_GENERAL_TOKEN = os.getenv('GOOGLE_GENERAL_TOKEN')
 
 @client.event
 async def on_ready():
@@ -21,11 +24,11 @@ async def on_ready():
 async def search(ctx, arg):
     try:
         arg = arg.lower()
-        res = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_TOKEN}&cx=a48e7f7f7b07c44ca&q={arg}")
+        res = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_TOKEN}&cx={GOOGLE_HYPERSPECIFIC_TOKEN}={arg}")
         print(res.text)
         res = res.json()
         if not ('items' in res.keys()) or res["items"] == []:
-            res = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_TOKEN}&cx=219860434a93544f2&q={arg}")
+            res = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_TOKEN}&cx={GOOGLE_SPECIFIC_TOKEN}&q={arg}")
             print(res.text)
             res = res.json()
             if res["items"] == []:
@@ -41,7 +44,7 @@ async def search(ctx, arg):
 async def search_google(ctx, arg):
     try:
         arg = arg.lower()
-        res = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_TOKEN}&cx=a1d0a547b253c4652&q={arg}")
+        res = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_TOKEN}&cx={GOOGLE_GENERAL_TOKEN}&q={arg}")
         print(res.text)
         res = res.json()
         if not ('items' in res.keys()) or res["items"] == []:
