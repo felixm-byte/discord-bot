@@ -34,13 +34,14 @@ else:
     GOOGLE_HYPERSPECIFIC_TOKEN = os.getenv('GOOGLE_HYPERSPECIFIC_TOKEN')
     GOOGLE_SPECIFIC_TOKEN = os.getenv('GOOGLE_SPECIFIC_TOKEN')
     GOOGLE_GENERAL_TOKEN = os.getenv('GOOGLE_GENERAL_TOKEN')
-
+print(DISCORD_TOKEN)
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
 
-@client.hybrid_command()
-async def search(ctx, arg):
+@client.command()
+async def search(ctx, *args):
+    arg = " ".join(args[:])
     try:
         arg = arg.lower()
         res = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_TOKEN}&cx={GOOGLE_HYPERSPECIFIC_TOKEN}={arg}")
@@ -59,8 +60,9 @@ async def search(ctx, arg):
     except Exception as e:
         await ctx.send(f"An unexpected error occured. Try using a different search query, or share this code with an admin if that doesn't work: \n{e}")
 
-@client.hybrid_command()
-async def search_google(ctx, arg):
+@client.command()
+async def search_google(ctx, *args):
+    arg = " ".join(args[:])
     try:
         arg = arg.lower()
         res = requests.get(f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_TOKEN}&cx={GOOGLE_GENERAL_TOKEN}&q={arg}")
