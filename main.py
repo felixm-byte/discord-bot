@@ -10,11 +10,30 @@ intents = discord.Intents.default()
 intents.message_content = True
 client = commands.Bot(command_prefix='/', intents=intents)
 
-DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
-GOOGLE_TOKEN = os.getenv('GOOGLE_TOKEN')
-GOOGLE_HYPERSPECIFIC_TOKEN = os.getenv('GOOGLE_HYPERSPECIFIC_TOKEN')
-GOOGLE_SPECIFIC_TOKEN = os.getenv('GOOGLE_SPECIFIC_TOKEN')
-GOOGLE_GENERAL_TOKEN = os.getenv('GOOGLE_GENERAL_TOKEN')
+if not os.getenv('DISCORD_TOKEN' or len(os.getenv('DISCORD_TOKEN')) != 59):
+    DISCORD_TOKEN = input("Please enter the Discord token:")
+    print("Please enter the Google token:")
+    GOOGLE_TOKEN = input()
+    print("Please enter the Google hyperspecific token:")
+    GOOGLE_HYPERSPECIFIC_TOKEN = input()
+    print("Please enter the Google specific token:")
+    GOOGLE_SPECIFIC_TOKEN = input()
+    print("Please enter the Google general token:")
+    GOOGLE_GENERAL_TOKEN = input()
+
+    with open('.env', 'w') as f:
+        f.write(f"DISCORD_TOKEN={DISCORD_TOKEN}\n")
+        f.write(f"GOOGLE_TOKEN={GOOGLE_TOKEN}\n")
+        f.write(f"GOOGLE_HYPERSPECIFIC_TOKEN={GOOGLE_HYPERSPECIFIC_TOKEN}\n")
+        f.write(f"GOOGLE_SPECIFIC_TOKEN={GOOGLE_SPECIFIC_TOKEN}\n")
+        f.write(f"GOOGLE_GENERAL_TOKEN={GOOGLE_GENERAL_TOKEN}\n")
+else:
+    print("Using existing .env file.")
+    DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
+    GOOGLE_TOKEN = os.getenv('GOOGLE_TOKEN')
+    GOOGLE_HYPERSPECIFIC_TOKEN = os.getenv('GOOGLE_HYPERSPECIFIC_TOKEN')
+    GOOGLE_SPECIFIC_TOKEN = os.getenv('GOOGLE_SPECIFIC_TOKEN')
+    GOOGLE_GENERAL_TOKEN = os.getenv('GOOGLE_GENERAL_TOKEN')
 
 @client.event
 async def on_ready():
