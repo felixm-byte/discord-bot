@@ -8,7 +8,7 @@ intents.message_content = True
 
 client = commands.Bot(command_prefix='/', intents=intents)
 
-DISCORD_TOKEN = "MTI3NjA5NTc3MjUzMzg1NDIxMA.GyTsDA.9H6Ogheq7BQdoH8Xu_iUVZOO4t73Ar0uONcr1U" 
+DISCORD_TOKEN = "" 
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
